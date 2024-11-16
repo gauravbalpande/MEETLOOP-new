@@ -57,10 +57,10 @@ io.on("connection", (socket) => {
 });
 
 // port listening
-// server.listen(process.env.PORT || 3030, () => {
-  // console.log("server started at port:3030");
-// });
+ server.listen(process.env.PORT || 3030, () => {
+   console.log("server started at port:3030");
+ });
 
-server.listen(process.env.PORT || 3030, '0.0.0.0', () => {
-  console.log("Server started on port 3030");
-});
+//server.listen(process.env.PORT || 3030, '0.0.0.0', () => {
+  // console.log("Server started on port 3030");
+// });
