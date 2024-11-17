@@ -14,6 +14,9 @@ const io = require('socket.io')(server, {
     credentials: true
   }
 });
+
+const { v4: uuidV4 } = require('uuid')
+
 const { ExpressPeerServer } = require("peer");
 const { connectMongoDB } = require("./connect");
 const peerServer = ExpressPeerServer(server, {
