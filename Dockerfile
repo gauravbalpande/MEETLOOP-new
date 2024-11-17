@@ -19,6 +19,7 @@ COPY . .
 # Expose the port the app runs on (80 for frontend or 3000 for backend, as an example)
 # EXPOSE 9000
  EXPOSE 3030
+ EXPOSE 9001
 
 # Step 7: Set environment variables if needed (can also be passed at runtime)
 # You can set specific environment variables like NODE_ENV here, or you can pass them when running the container.
