@@ -1,9 +1,15 @@
 const socket = io('/');
 const videoGrid = document.getElementById("video-grid");
+const peer = new Peer(undefined, {
+  path: '/peerjs',
+  host: '/',
+  port: '443'
+})
+let myVideoStream;
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
-const peers = {};
+// const peers = {};
 
 //var peer = new Peer(undefined, {
 //  path: "/peerjs", // Path to PeerJS server
@@ -12,16 +18,12 @@ const peers = {};
 //  secure: false          // Set to true if using HTTPS
 //});
 
-const peer = new Peer(undefined, {
-  path: '/peerjs',
-  host: '/',
-  port: '443'
-})
 
 
 
 
-let myVideoStream;
+
+
 const peers = {}
 navigator.mediaDevices
   .getUserMedia({
