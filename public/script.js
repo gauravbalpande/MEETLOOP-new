@@ -1,6 +1,6 @@
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
-const myPeer = new Peer(undefined, {
+const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   port: '443'
@@ -45,7 +45,7 @@ socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close()
 })
 
-myPeer.on('open', id => {
+peer.on('open', id => {
   socket.emit('join-room', ROOM_ID, id)
 })
 
