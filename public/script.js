@@ -1,4 +1,4 @@
-const socket = io('http://3.80.134.39:3030');
+const socket = io('http://3.84.12.216:3030');
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
@@ -7,7 +7,7 @@ const peers = {};
 
 var peer = new Peer(undefined, {
   path: "/peerjs", // Path to PeerJS server
-  host: "3.80.134.39",  // Use the IP address of the server (or the domain if running on a cloud server)
+  host: "3.84.12.216",  // Use the IP address of the server (or the domain if running on a cloud server)
   port: 3030,            // Port where PeerJS is running
   secure: false          // Set to true if using HTTPS
 });
