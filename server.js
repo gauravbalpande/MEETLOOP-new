@@ -4,11 +4,23 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const server = require("http").Server(app);
-const io = require("socket.io")(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',  // Allow all origins
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true
+  }
+});
 const { ExpressPeerServer } = require("peer");
 const { connectMongoDB } = require("./connect");
 const peerServer = ExpressPeerServer(server, {
+  path: '/peerjs',
   debug: true,
+  cors: {
+    origin: '*',  // Allow all origins
+    methods: ['GET', 'POST']
+  }
 });
 const staticRoute = require("./routes/staticRoute");
 const userRoute = require("./routes/userRoute");
@@ -56,23 +68,9 @@ io.on("connection", (socket) => {
   });
 });
 
-const io = require('socket.io')(server, {
-  cors: {
-    origin: '*',  // Allow all origins
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true
-  }
-});
 
-const peerServer = ExpressPeerServer(server, {
-  path: '/peerjs',
-  debug: true,
-  cors: {
-    origin: '*',  // Allow all origins
-    methods: ['GET', 'POST']
-  }
-});
+
+
 
 
 
