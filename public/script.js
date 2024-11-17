@@ -5,14 +5,24 @@ myVideo.muted = true;
 
 const peers = {};
 
-var peer = new Peer(undefined, {
-  path: "/peerjs", // Path to PeerJS server
-  host: "3.84.12.216",  // Use the IP address of the server (or the domain if running on a cloud server)
-  port: 3030,            // Port where PeerJS is running
-  secure: false          // Set to true if using HTTPS
-});
+//var peer = new Peer(undefined, {
+//  path: "/peerjs", // Path to PeerJS server
+//  host: "3.84.12.216",  // Use the IP address of the server (or the domain if running on a cloud server)
+//  port: 3030,            // Port where PeerJS is running
+//  secure: false          // Set to true if using HTTPS
+//});
+
+const peer = new Peer(undefined, {
+  path: '/peerjs',
+  host: '/',
+  port: '443'
+})
+
+
+
 
 let myVideoStream;
+const peers = {}
 navigator.mediaDevices
   .getUserMedia({
     video: true,
