@@ -36,6 +36,14 @@ connectMongoDB(process.env.Mongo_URL).then(() => {
   // console.log("MongoDB Connected");
 });
 
+app.get('/', (req, res) => {
+  res.redirect(`/${uuidV4()}`)
+})
+
+app.get('/:room', (req, res) => {
+  res.render('room', { roomId: req.params.room })
+})
+
 //view engine
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -55,32 +63,20 @@ app.use("/", staticRoute);
 app.use("/user", userRoute);
 
 // socket-io connections
-io.on("connection", (socket) => {
-  socket.on("join-room", (roomId, userId) => {
-    socket.join(roomId);
-    socket.broadcast.to(roomId).emit("user-connected", userId);
+io.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.to(roomId).broadcast.emit('user-connected', userId);
+    // messages
+    socket.on('message', (message) => {
+      //send message to the same room
+      io.to(roomId).emit('createMessage', message)
+  }); 
 
-    socket.on("message", (message) => {
-      io.to(roomId).emit("createMessage", message);
-    });
+    socket.on('disconnect', () => {
+      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+    })
+  })
+})
 
-    socket.on("disconnect", () => {
-      socket.broadcast.to(roomId).emit("user-disconnected", userId);
-    });
-  });
-});
-
-
-
-
-
-
-
-// port listening
-// server.listen(process.env.PORT || 3030, () => {
- //  console.log("server started at port:3030");
-// });
-
-server.listen(process.env.PORT || 3030, '0.0.0.0', () => {
-   console.log("Server started on port 3030");
- });
+server.listen(process.env.PORT||3030)
