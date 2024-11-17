@@ -56,6 +56,26 @@ io.on("connection", (socket) => {
   });
 });
 
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',  // Allow all origins
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true
+  }
+});
+
+const peerServer = ExpressPeerServer(server, {
+  path: '/peerjs',
+  debug: true,
+  cors: {
+    origin: '*',  // Allow all origins
+    methods: ['GET', 'POST']
+  }
+});
+
+
+
 // port listening
 // server.listen(process.env.PORT || 3030, () => {
  //  console.log("server started at port:3030");
