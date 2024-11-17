@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io('http://3.80.134.39:3030');
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
