@@ -9,6 +9,9 @@ let myVideoStream;
 const myVideo = document.createElement('video')
 myVideo.muted = true;
 const peers = {}
+
+const ROOM_ID = window.location.pathname.split('/')[1]; // Get room ID from URL
+
 navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
@@ -26,9 +29,8 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream)
   })
-  // input value
+  
   let text = $("input");
-  // when press enter send message
   $('html').keydown(function (e) {
     if (e.which == 13 && text.val().length !== 0) {
       socket.emit('message', text.val());
@@ -58,7 +60,6 @@ function connectToNewUser(userId, stream) {
   call.on('close', () => {
     video.remove()
   })
-
   peers[userId] = call
 }
 
@@ -70,13 +71,10 @@ function addVideoStream(video, stream) {
   videoGrid.append(video)
 }
 
-
-
 const scrollToBottom = () => {
   var d = $('.main__chat_window');
   d.scrollTop(d.prop("scrollHeight"));
 }
-
 
 const muteUnmute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
@@ -90,13 +88,12 @@ const muteUnmute = () => {
 }
 
 const playStop = () => {
-  console.log('object')
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
-    setPlayVideo()
+    setPlayVideo();
   } else {
-    setStopVideo()
+    setStopVideo();
     myVideoStream.getVideoTracks()[0].enabled = true;
   }
 }
@@ -127,8 +124,9 @@ const setStopVideo = () => {
 
 const setPlayVideo = () => {
   const html = `
-  <i class="stop fas fa-video-slash"></i>
+    <i class="stop fas fa-video-slash"></i>
     <span>Play Video</span>
   `
   document.querySelector('.main__video_button').innerHTML = html;
 }
+
