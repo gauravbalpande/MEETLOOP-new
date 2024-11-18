@@ -22,6 +22,10 @@ connectMongoDB(process.env.Mongo_URL).then(() => {
   // console.log("MongoDB Connected");
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 //view engine
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
